@@ -13,4 +13,6 @@ public class Visitor {
 
 	public void visitAttribute(Attribute attribute) {
 	}
+	public void visitReferenceType(Type type) {
+	}
 }

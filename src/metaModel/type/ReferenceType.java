@@ -8,6 +8,6 @@ public class ReferenceType extends Type {
         super(type);
     }
     public void accept(Visitor v){
-        v.visitTypeReference(this);
+        v.visitReferenceType(this);
     };
 }
