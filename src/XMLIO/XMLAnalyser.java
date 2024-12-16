@@ -1,15 +1,17 @@
 package XMLIO;
 
 import javax.xml.parsers.*;
-
-import metaModel.Class;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
 
 import metaModel.*;
+import metaModel.Entity;
+
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class XMLAnalyser {
@@ -21,6 +23,9 @@ public class XMLAnalyser {
 	// Map des elements XML
 	protected Map<String, Element> xmlElementIndex;
 
+	private List<PendingAttribute> pendingAttributes = new ArrayList<>();
+
+
 	public XMLAnalyser() {
 		this.minispecIndex = new HashMap<String, MinispecElement>();
 		this.xmlElementIndex = new HashMap<String, Element>();
@@ -29,23 +34,66 @@ public class XMLAnalyser {
 	protected Model modelFromElement(Element e) {
 		return new Model();
 	}
-	
-	protected Class classFromElement(Element e) {
+
+	protected Entity entityFromElement(Element e) {
 		String name = e.getAttribute("name");
-		Class classObject = new Class(name);
+		Entity entity = new Entity();
+		entity.setName(name);
+
+		// Récupérer tous les éléments Attribute
+		NodeList attributeNodes = e.getElementsByTagName("Attribute");
+		for (int i = 0; i < attributeNodes.getLength(); i++) {
+			Element attrElement = (Element) attributeNodes.item(i);
+			String attrName = attrElement.getAttribute("name");
+			String typeStr = attrElement.getAttribute("type");
+
+			// Pour l'instant, ne traiter que les types primitifs
+			if (isPrimitiveType(typeStr)) {
+				Type type = new PrimitiveType(typeStr);
+				Attribute attribute = new Attribute(attrName, type);
+
+				String defaultValue = attrElement.getAttribute("default");
+				if (!defaultValue.isEmpty()) {
+					attribute.setDefaultValue(defaultValue);
+				}
+
+				entity.addAttribute(attribute);
+			}
+			// Sauvegarder les attributs non-primitifs pour plus tard
+			else {
+				pendingAttributes.add(new PendingAttribute(entity, attrElement));
+			}
+		}
+
 		Model model = (Model) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("model")));
-		model.addEntity(classObject);
-		return classObject;
+		model.addEntity(entity);
+		return entity;
 	}
 
-	protected Attribute attributeFromElement(Element e) {
-		String name = e.getAttribute("name");
-		Attribute attribute = new Attribute();
-		attribute.setName(name);
-		Class classObject = (Class) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("entity")));
-		classObject.addAttribute(attribute);
-		return attribute;
+	private boolean isPrimitiveType(String type) {
+		return type.equals("String") || type.equals("Integer") ||
+				type.equals("Boolean") || type.equals("Double");
 	}
+
+	private Entity findEntityByName(String name) {
+		// Parcourir minispecIndex pour trouver l'entité par son nom
+		for (MinispecElement element : minispecIndex.values()) {
+			if (element instanceof Entity && ((Entity) element).getName().equals(name)) {
+				return (Entity) element;
+			}
+		}
+		return null;
+	}
+
+	private Type resolveType(String typeName) {
+		if (isPrimitiveType(typeName)) {
+			return new PrimitiveType(typeName);
+		} else {
+			Entity referencedEntity = findEntityByName(typeName);
+			return new ReferenceType(referencedEntity);
+		}
+	}
+
 
 	protected MinispecElement minispecElementFromXmlElement(Element e) {
 		String id = e.getAttribute("id");
@@ -54,11 +102,9 @@ public class XMLAnalyser {
 		String tag = e.getTagName();
 		if (tag.equals("Model")) {
 			result = modelFromElement(e);
-		} else  if (tag.equals("Entity")){
-			result = classFromElement(e);
-		} else {
-			result = attributeFromElement(e);
-		}
+		} else  {
+			result = entityFromElement(e);
+		} 
 		this.minispecIndex.put(id, result);
 		return result;
 	}
@@ -89,16 +135,16 @@ public class XMLAnalyser {
 
 	public Model getModelFromDocument(Document document) {
 		Element e = document.getDocumentElement();
-		
+
 		firstRound(e);
-		
 		secondRound(e);
-		
-		Model model = (Model) this.minispecIndex.get(e.getAttribute("model"));
-				
-		return model;
+
+		// Résoudre les attributs après avoir chargé toutes les entités
+		resolveAttributes();
+
+		return (Model) this.minispecIndex.get(e.getAttribute("model"));
 	}
-	
+
 	public Model getModelFromInputStream(InputStream stream) {
 		try {
 			// création d'une fabrique de documents
@@ -141,5 +187,42 @@ public class XMLAnalyser {
 	public Model getModelFromFilenamed(String filename) {
 			File file = new File(filename);
 			return getModelFromFile(file);
+	}
+
+	private void resolveAttributes() {
+		for (PendingAttribute pending : pendingAttributes) {
+			Element attrElement = pending.getAttributeElement();
+			String attrName = attrElement.getAttribute("name");
+			String typeStr = attrElement.getAttribute("type");
+
+			Type type;
+			if (typeStr.equals("List") || typeStr.equals("Set") || typeStr.equals("Array")) {
+				String elementTypeStr = attrElement.getAttribute("elementType");
+				Type elementType = resolveType(elementTypeStr);
+				CollectionType collectionType = new CollectionType(typeStr, elementType);
+
+				if (typeStr.equals("List")) {
+					int minSize = Integer.parseInt(attrElement.getAttribute("minSize"));
+					int maxSize = Integer.parseInt(attrElement.getAttribute("maxSize"));
+					collectionType.setCardinality(minSize, maxSize);
+				} else if (typeStr.equals("Array")) {
+					int size = Integer.parseInt(attrElement.getAttribute("size"));
+					collectionType.setCardinality(size, size);
+				}
+
+				type = collectionType;
+			} else {
+				Entity referencedEntity = findEntityByName(typeStr);
+				type = new ReferenceType(referencedEntity);
+			}
+
+			Attribute attribute = new Attribute(attrName, type);
+			String defaultValue = attrElement.getAttribute("default");
+			if (!defaultValue.isEmpty()) {
+				attribute.setDefaultValue(defaultValue);
+			}
+
+			pending.getEntity().addAttribute(attribute);
+		}
 	}
 }

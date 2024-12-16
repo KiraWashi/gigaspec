@@ -5,21 +5,21 @@ import java.util.List;
 
 public class Model implements MinispecElement {
 
-	List<Class> classes;
+	List<Entity> entities;
 	
 	public Model () {
-		this.classes = new ArrayList<>();
+		this.entities = new ArrayList<>();
 	}
 	
 	public void accept(Visitor v) {
 		v.visitModel(this);
 	}
 	
-	public void addEntity(Class e) {
-		this.classes.add(e);
+	public void addEntity(Entity e) {
+		this.entities.add(e);
 	}
-	public List<Class> getClasses() {
-		return classes;
+	public List<Entity> getEntities() {
+		return entities;
 	}
 	
 }

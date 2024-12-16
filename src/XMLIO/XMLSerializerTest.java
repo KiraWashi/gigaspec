@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
 import metaModel.Model;
 
 
-class XMLSerailizerTest {
+class XMLSerializerTest {
 
 	@Test
 	void test0() throws TransformerException, ParserConfigurationException {

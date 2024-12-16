@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Root model="#1">
+    <Model id="#1" />
+    <Entity model="#1" id="#10" name="Etudiant">
+        <Attribute name="id" type="Integer"/>
+        <Attribute name="nom" type="String"/>
+        <Attribute name="cours" type="List" elementType="Cours" minSize="1" maxSize="5"/>
+        <Attribute name="notes" type="Array" elementType="Integer" size="20"/>
+    </Entity>
+    <Entity model="#1" id="#20" name="Cours">
+        <Attribute name="code" type="String"/>
+        <Attribute name="titre" type="String"/>
+        <Attribute name="enseignant" type="Professeur"/>
+    </Entity>
+    <Entity model="#1" id="#30" name="Professeur">
+        <Attribute name="id" type="Integer"/>
+        <Attribute name="nom" type="String"/>
+        <Attribute name="specialites" type="List" elementType="String" minSize="1" maxSize="3"/>
+    </Entity>
+</Root>

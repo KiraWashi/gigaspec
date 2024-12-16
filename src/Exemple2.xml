@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Root model="#1">
+	<Model id="#1" />
+	<Entity model="#1" id="#20" name="Personne">
+		<Attribute name="id" type="Integer"/>
+		<Attribute name="nom" type="String"/>
+		<Attribute name="age" type="Integer" default="18"/>
+	</Entity>
+	<Entity model="#1" id="#30" name="Adresse">
+		<Attribute name="rue" type="String"/>
+		<Attribute name="ville" type="String"/>
+		<Attribute name="codePostal" type="Integer"/>
+	</Entity>
+</Root>

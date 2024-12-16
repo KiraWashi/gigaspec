@@ -11,9 +11,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import metaModel.Entity;
 import metaModel.Model;
 import metaModel.Visitor;
-import metaModel.Class;
 
 public class XMLSerializer extends Visitor {
 	List<Element> elements;
@@ -22,7 +22,7 @@ public class XMLSerializer extends Visitor {
 	Integer counter;
 	Document doc;
 	
-	Document result() {
+	public Document result() {
 		return this.doc;
 	}
 	
@@ -54,8 +54,8 @@ public class XMLSerializer extends Visitor {
 	}
 
 	@Override
-	public void visitClass(Class e) {
-		super.visitClass(e);
+	public void visitEntity(Entity e) {
+		super.visitEntity(e);
 		Element elem = this.doc.createElement("Entity");
 		this.addIdToElement(elem);
 		Attr attr = doc.createAttribute("model");
@@ -78,7 +78,7 @@ public class XMLSerializer extends Visitor {
 		this.maybeUpdateRootFrom(elem);
 		this.root.appendChild(elem);
 		elements.add(elem);
-		for (Class n : e.getClasses()) {
+		for (Entity n : e.getEntities()) {
 			n.accept(this);
 		}
 	}
