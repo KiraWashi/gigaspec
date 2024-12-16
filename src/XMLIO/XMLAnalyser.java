@@ -3,6 +3,8 @@ package XMLIO;
 import javax.xml.parsers.*;
 
 import metaModel.Class;
+import metaModel.type.PrimitiveType;
+import metaModel.type.Type;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
@@ -14,8 +16,8 @@ import java.util.Map;
 
 public class XMLAnalyser {
 
-	// Les clés des 2 Map sont les id 
-	
+	// Les clés des 2 Map sont les id
+
 	// Map des instances de la syntaxe abstraite (metamodel)
 	protected Map<String, MinispecElement> minispecIndex;
 	// Map des elements XML
@@ -29,7 +31,7 @@ public class XMLAnalyser {
 	protected Model modelFromElement(Element e) {
 		return new Model();
 	}
-	
+
 	protected Class classFromElement(Element e) {
 		String name = e.getAttribute("name");
 		Class classObject = new Class(name);
@@ -40,12 +42,24 @@ public class XMLAnalyser {
 
 	protected Attribute attributeFromElement(Element e) {
 		String name = e.getAttribute("name");
+		String type = e.getAttribute("type");
 		Attribute attribute = new Attribute();
 		attribute.setName(name);
+		attribute.setType(typeFromElement(type));
 		Class classObject = (Class) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("entity")));
 		classObject.addAttribute(attribute);
 		return attribute;
 	}
+
+	protected Type typeFromElement(String type){
+		if(type.equals("String")){
+			return new PrimitiveType(type);
+		}else if (type.equals("Integer")){
+			return new PrimitiveType(type);
+		}
+		return null;
+	}
+
 
 	protected MinispecElement minispecElementFromXmlElement(Element e) {
 		String id = e.getAttribute("id");
@@ -89,16 +103,16 @@ public class XMLAnalyser {
 
 	public Model getModelFromDocument(Document document) {
 		Element e = document.getDocumentElement();
-		
+
 		firstRound(e);
-		
+
 		secondRound(e);
-		
+
 		Model model = (Model) this.minispecIndex.get(e.getAttribute("model"));
-				
+
 		return model;
 	}
-	
+
 	public Model getModelFromInputStream(InputStream stream) {
 		try {
 			// création d'une fabrique de documents
@@ -121,13 +135,13 @@ public class XMLAnalyser {
 		}
 		return null;
 	}
-	
-	public Model getModelFromString(String contents) {		
+
+	public Model getModelFromString(String contents) {
 		InputStream stream = new ByteArrayInputStream(contents.getBytes());
 		return getModelFromInputStream(stream);
 	}
-	
-	public Model getModelFromFile(File file) {		
+
+	public Model getModelFromFile(File file) {
 		InputStream stream = null;
 		try {
 			stream = new FileInputStream(file);
@@ -139,7 +153,7 @@ public class XMLAnalyser {
 	}
 
 	public Model getModelFromFilenamed(String filename) {
-			File file = new File(filename);
-			return getModelFromFile(file);
+		File file = new File(filename);
+		return getModelFromFile(file);
 	}
 }
