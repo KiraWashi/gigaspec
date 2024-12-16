@@ -20,12 +20,13 @@ public class JavaGenerator extends Visitor {
 		result = result + "end model\n";
 	}
 	
-	public void visitEntity(Class e) {
-		result = result + "class " + e.getName() + "{\n";
+	public void visitClass(Class e) {
+		result = result + "package " + e.getName() ;
+		result = result + "\n class " +e.getName() + " { \n";
 		for (Attribute n : e.attributes) {
 			n.accept(this);
 		}
-		result = result + "}\n";
+		result = result + "\n}\n";
 	}
 
 	@Override
