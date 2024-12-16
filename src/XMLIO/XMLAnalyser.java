@@ -3,7 +3,9 @@ package XMLIO;
 import javax.xml.parsers.*;
 
 import metaModel.Class;
+import metaModel.type.CollectionType;
 import metaModel.type.PrimitiveType;
+import metaModel.type.ReferenceType;
 import metaModel.type.Type;
 import org.w3c.dom.*;
 import org.xml.sax.*;
@@ -56,6 +58,9 @@ public class XMLAnalyser {
 			return new PrimitiveType(type);
 		}else if (type.equals("Integer")){
 			return new PrimitiveType(type);
+		}
+		else if (type.equals("Flotte")){
+			return new CollectionType(type,new ReferenceType(type));
 		}
 		return null;
 	}
