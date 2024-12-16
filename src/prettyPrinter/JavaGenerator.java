@@ -59,8 +59,7 @@ public class JavaGenerator extends Visitor {
 
 	@Override
 	public void visitAttribute(Attribute attribute) {
-		result= result + attribute.getName() + " : ";
-		attribute.getType().accept(this);
+		result= result +"  "+ attribute.getType().getNom() + " "+attribute.getName();
 		result = result + "; \n";
 	}
 }
