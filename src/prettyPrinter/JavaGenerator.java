@@ -47,12 +47,38 @@ public class JavaGenerator extends Visitor {
 
 	@Override
 	public void visitCollectionType(CollectionType type) {
-		String ret = switch (type.getNom()) {
-			case "List" -> "  List ["+type.getDebut() + " : "+type.getFin()+"] of ";
-			case "Bag" -> "  Bag";
-			case "Array" -> "  Array ["+type.getTaille()+"] of ";
-			default -> "";
-		};
+		String ret="";
+        switch (type.getNom()) {
+            case "List" -> {
+                if (type.isDebFinRenseigne()) {
+                    ret = "  List [" + type.getDebut() + " : " + type.getFin() + "] of ";
+                } else {
+                    ret = "  List of ";
+                }
+            }
+            case "Bag" -> {
+                if (type.isDebFinRenseigne()) {
+                    ret = "  Bag [" + type.getDebut() + " : " + type.getFin() + "] of ";
+                } else {
+                    ret = "  Bag of ";
+                }
+            }
+            case "Set" -> {
+                if (type.isDebFinRenseigne()) {
+                    ret = "  Set [" + type.getDebut() + " : " + type.getFin() + "] of ";
+                } else {
+                    ret = "  Set of ";
+                }
+            }
+            case "Array" -> {
+                if (type.isTailleRenseigne()) {
+                    ret = "  Array [" + type.getTaille() + "] of ";
+                }else{
+                    ret = "  Array of ";
+                }
+            }
+            default -> ret = "";
+        };
 		result = result + ret;
 		type.getSousType().accept(this);
 	}
