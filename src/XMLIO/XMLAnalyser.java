@@ -47,20 +47,29 @@ public class XMLAnalyser {
 		String type = e.getAttribute("type");
 		Attribute attribute = new Attribute();
 		attribute.setName(name);
-		attribute.setType(typeFromElement(type));
+		attribute.setType((Type) this.minispecIndex.get(type));
 		Class classObject = (Class) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("entity")));
 		classObject.addAttribute(attribute);
 		return attribute;
 	}
 
-	private MinispecElement referenceTypeFromElement(Element e) {
-		
+	private ReferenceType referenceTypeFromElement(Element e) {
+        return new ReferenceType(e.getAttribute("name"));
 	}
 
-	private MinispecElement collectionTypeFromElement(Element e) {
+	private CollectionType collectionTypeFromElement(Element e) {
+        return new CollectionType(e.getAttribute("name"),(Type) this.minispecIndex.get(e.getAttribute("baseType")));
 	}
 
-	private MinispecElement primitivTypeFromElement(Element e) {
+	private PrimitiveType primitivTypeFromElement(Element e) {
+		String type = e.getAttribute("name");
+		if(type.equals("String")){
+			return new PrimitiveType(type);
+		}else if (type.equals("Integer")){
+			return new PrimitiveType(type);
+		}else{
+			return null;
+		}
 	}
 
 	protected Type typeFromElement(String type){

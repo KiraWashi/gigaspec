@@ -5,15 +5,16 @@
 	<!-- Pour associer deux expressions on utilise l'identifiant -->
 	<!--     exemple : le model de l'entite #30 est pointé par son attribut model avec #1  -->
 	<Model id="#1" />
+	<ReferenceType id="#21" name="Balise"/>
+	<ReferenceType id="#31" name="Satellite"/>
+	<ReferenceType id="#91" name="Flotte"/>
+	<CollectionType id="#100" name="List" baseType="#31" minSize="5" maxSize="10"/>
 		<Entity id="#20" name="Balise" model="#1"/>
-		<ReferenceType id="#21" name="balise"/>
 		<Entity id="#30" name="Satellite" model="#1" />
-		<ReferenceType id="#31" name="satellite"/>
-			<Attribute name="flotte" type="#91" entity="#30" />
-			<ReferenceType id="#91" name="flotte"/>
 		<Entity id="#90" name="Flotte" model="#1"/>
+			<Attribute name="flotte" type="#91" entity="#30" />
 			<Attribute name="satellites" type="#100" entity="#90"/>
-			<CollectionType id="#100" name="list" baseType="#31" minSize="5" maxSize="10"/>
+
 
 
 	<!-- <Attribute id ="#50" name="specialities" type="#200"/>

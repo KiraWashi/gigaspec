@@ -8,9 +8,7 @@ public abstract class Type implements MinispecElement {
     public Type(String nom) {
         this.nom = nom;
     }
-    public void accept(Visitor v){
-        v.visitType(this);
-    };
+
 
     public String getNom() {
         return nom;
