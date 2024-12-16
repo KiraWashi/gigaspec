@@ -1,6 +1,7 @@
 package metaModel;
 
 
+import metaModel.type.CollectionType;
 import metaModel.type.Type;
 
 public class Visitor {
@@ -14,5 +15,8 @@ public class Visitor {
 	public void visitAttribute(Attribute attribute) {
 	}
 	public void visitReferenceType(Type type) {
+	}
+
+	public void visitCollectionType(CollectionType type) {
 	}
 }
