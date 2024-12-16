@@ -3,15 +3,15 @@ package metaModel.type;
 import metaModel.Visitor;
 
 public abstract class Type {
-    private final String type;
-    public Type(String type) {
-        this.type = type;
+    private final String nom;
+    public Type(String nom) {
+        this.nom = nom;
     }
     public void accept(Visitor v){
         v.visitType(this);
     };
 
-    public String getType() {
-        return type;
+    public String getNom() {
+        return nom;
     }
 }
