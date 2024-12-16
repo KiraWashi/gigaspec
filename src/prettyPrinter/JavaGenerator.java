@@ -33,8 +33,8 @@ public class JavaGenerator extends Visitor {
 	@Override
 	public void visitType(Type type) {
 		String ret = switch (type.getNom()) {
-            case "String" -> "String";
-            case "Integer" -> "Integer";
+            case "String" -> "  String";
+            case "Integer" -> "  Integer";
 			default -> "";
         };
 		result = result + ret;
@@ -42,15 +42,15 @@ public class JavaGenerator extends Visitor {
 
 	@Override
 	public void visitReferenceType(Type type) {
-		result = result + type.getNom();
+		result = result + "  "+type.getNom();
 	}
 
 	@Override
 	public void visitCollectionType(CollectionType type) {
 		String ret = switch (type.getNom()) {
-			case "List" -> "List ["+type.getDebut() + " : "+type.getFin()+"] of ";
-			case "Bag" -> "Bag";
-			case "Array" -> "Array ["+type.getTaille()+"] of ";
+			case "List" -> "  List ["+type.getDebut() + " : "+type.getFin()+"] of ";
+			case "Bag" -> "  Bag";
+			case "Array" -> "  Array ["+type.getTaille()+"] of ";
 			default -> "";
 		};
 		result = result + ret;
@@ -59,7 +59,8 @@ public class JavaGenerator extends Visitor {
 
 	@Override
 	public void visitAttribute(Attribute attribute) {
-		result= result +"  "+ attribute.getType().getNom() + " "+attribute.getName();
+		attribute.getType().accept(this);
+		result= result +" "+attribute.getName();
 		result = result + "; \n";
 	}
 }
