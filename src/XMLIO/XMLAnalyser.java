@@ -53,6 +53,16 @@ public class XMLAnalyser {
 		return attribute;
 	}
 
+	private MinispecElement referenceTypeFromElement(Element e) {
+		
+	}
+
+	private MinispecElement collectionTypeFromElement(Element e) {
+	}
+
+	private MinispecElement primitivTypeFromElement(Element e) {
+	}
+
 	protected Type typeFromElement(String type){
 		if(type.equals("String")){
 			return new PrimitiveType(type);
@@ -75,12 +85,21 @@ public class XMLAnalyser {
 			result = modelFromElement(e);
 		} else  if (tag.equals("Entity")){
 			result = classFromElement(e);
-		} else {
+		} else if (tag.equals("Attribute")){
 			result = attributeFromElement(e);
+		} else if (tag.equals("ReferenceType")){
+			result = referenceTypeFromElement(e);
+		} else if (tag.equals("CollectionType")){
+			result = collectionTypeFromElement(e);
+		} else {
+			result = primitivTypeFromElement(e);
 		}
 		this.minispecIndex.put(id, result);
 		return result;
 	}
+
+
+
 
 	// alimentation du map des elements XML
 	protected void firstRound(Element el) {
