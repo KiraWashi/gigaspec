@@ -23,7 +23,11 @@ public class JavaGenerator extends Visitor {
 	
 	public void visitClass(Class e) {
 		result = result + "package " + e.getName() ;
-		result = result + "\n class " +e.getName() + " { \n";
+		if (e.classHeritage!=null){
+			result = result + "\n class " +e.getName() + "subtype of "+e.classHeritage.getName()+" { \n";
+		}else{
+			result = result + "\n class " +e.getName() + " { \n";
+		}
 		for (Attribute n : e.attributes) {
 			n.accept(this);
 		}
