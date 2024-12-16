@@ -2,6 +2,7 @@ package prettyPrinter;
 
 import metaModel.*;
 import metaModel.Class;
+import metaModel.type.PrimitiveType;
 import metaModel.type.Type;
 
 public class JavaGenerator extends Visitor {
@@ -31,11 +32,25 @@ public class JavaGenerator extends Visitor {
 
 	@Override
 	public void visitType(Type type) {
-		result = result + type.toString();
+		String ret = switch (type.getType()) {
+            case "String" -> "String";
+            case "Integer" -> "Integer";
+			case "List" -> "List";
+			case "Bag" -> "Bag";
+			case "Array" -> "Array";
+			default -> "";
+        };
+		result = result + ret;
+    }
+
+	public void visitReferenceType(Type type) {
+		result = result + type.getType();
 	}
 
 	@Override
 	public void visitAttribute(Attribute attribute) {
-		result= result + attribute.toString() + "\n";
+		result= result + attribute.getName() + " : ";
+		attribute.getType().accept(this);
+		result = result + "; \n";
 	}
 }
