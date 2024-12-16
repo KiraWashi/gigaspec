@@ -3,17 +3,17 @@
 <Root model="#1">
 	<!-- chaque element a un identifiant unique (attribut id) -->
 	<!-- Pour associer deux expressions on utilise l'identifiant -->
-	<!-- 	exemple : le model de l'entite #30 est pointé par son attribut model avec #1  -->
+	<!-- 	exemple : le model de l'entite #30 est pointÃ© par son attribut model avec #1  -->
 	<Model id="#1" />
-	<Entity model="#1" name="Balise">
-		<Attribute name="nom" type="String"/>
-		<Attribute name="id" type="Integer"/>
-		<Attribute name="parent" type="Flotte"/>
+	<Entity model="#1" id="#2" name="Balise">
+		<Attribute entity="#2" id="#2" name="nom" type="String"/>
+		<Attribute entity="#2" id="#3" name="id" type="Integer"/>
+		<Attribute entity="#2" id="#4" name="parent" type="Flotte"/>
 	</Entity>
-	<Entity model="#1" name="Satellite">
-		<Attribute name="nom" type="String"/>
-		<Attribute name="id" type="Integer"/>
-		<Attribute name="parent" type="Flotte"/>
+	<Entity model="#1" id="#5" name="Satellite">
+		<Attribute entity="#5" id="#6" name="nom" type="String"/>
+		<Attribute entity="#5" id="#7" name="id" type="Integer"/>
+		<Attribute entity="#5" id="#8" name="parent" type="Flotte"/>
 	</Entity>
-	<Entity model="#1" name="Flotte"/>
+	<Entity model="#1" id="#9" name="Flotte"/>
 </Root>

@@ -18,4 +18,13 @@ class JavaGeneratorTest {
 		System.out.println(pp.result());
 	}
 
+	@Test
+	void testPOURNOUS() {
+		XMLAnalyser analyser = new XMLAnalyser();
+		Model model = analyser.getModelFromFilenamed("ExemplePOURNOUS.xml");
+		JavaGenerator pp = new JavaGenerator();
+		model.accept(pp);
+		System.out.println(pp.result());
+	}
+
 }
