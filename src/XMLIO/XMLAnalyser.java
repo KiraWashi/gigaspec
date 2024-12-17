@@ -36,9 +36,11 @@ public class XMLAnalyser {
 
 	protected Model modelFromElement(Element e) {
 		String name = e.getAttribute("name");
-		String packages = e.getAttribute("package");
 		Model model = new Model(name);
-		model.setPackageName(packages);
+		if(e.hasAttribute("package")){
+			String packages = e.getAttribute("package");
+			model.setPackageName(packages);
+		}
 		return model;
 	}
 
@@ -83,6 +85,8 @@ public class XMLAnalyser {
 		}
 		if(e.hasAttribute("size")){
 			collectionType.setTaille(Integer.parseInt(e.getAttribute("size")));
+		}if(e.hasAttribute("package")){
+			collectionType.setPackageName(e.getAttribute("package"));
 		}
 
 		return collectionType;
