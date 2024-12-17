@@ -6,9 +6,11 @@ import java.util.List;
 public class Model implements MinispecElement {
 
 	List<Class> classes;
-	
-	public Model () {
+	private String packageName;
+	public String name;
+	public Model (String name) {
 		this.classes = new ArrayList<>();
+		this.name = name;
 	}
 	
 	public void accept(Visitor v) {
@@ -21,5 +23,12 @@ public class Model implements MinispecElement {
 	public List<Class> getClasses() {
 		return classes;
 	}
-	
+
+	public String getPackageName() {
+		return packageName;
+	}
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
 }
