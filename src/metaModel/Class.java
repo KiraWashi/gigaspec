@@ -38,8 +38,10 @@ public class Class implements MinispecElement {
 		if(this.classHeritage != null) {
 			throw new HeritageAlreadyGivenException("La classe "+this.name+" hérite déjà de la classe "+this.classHeritage.getName());
 		}
-		if (heritage.classHeritage.equals(this)) {
-			throw new HeritageCirculaireException("La classe "+this.name+" va faire de l'héritage circulaire avec la classe "+heritage.name);
+		if (heritage.classHeritage != null) {
+			if (heritage.classHeritage.equals(this)) {
+				throw new HeritageCirculaireException("La classe "+this.name+" va faire de l'héritage circulaire avec la classe "+heritage.name);
+			}
 		}
 		if(heritage.equals(this)) {
 			throw new HeritageYourselfException("La classe "+this.name+" ne peut pas hériter d'elle même");
