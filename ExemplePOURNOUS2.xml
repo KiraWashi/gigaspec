@@ -4,7 +4,7 @@
 	<!-- chaque element a un identifiant unique (attribut id) -->
 	<!-- Pour associer deux expressions on utilise l'identifiant -->
 	<!--     exemple : le model de l'entite #30 est pointé par son attribut model avec #1  -->
-	<Model id="#1" name="Model" package="m2tiil.Model" />
+	<Model id="#1" name="Model" />
 	<Entity id="#22" name="Bleu" model="#1" supertype="#20"/>
 	<Attribute id="#50" name="satellites" type="#100" entity="#90"/>
 	<Attribute id="#51" name="flotte" type="#91" entity="#30" />
@@ -12,9 +12,9 @@
 	<Attribute id="#53" name="setBalises" type="#102" entity="#20"/>
 	<Attribute id="#54" name="bleuId" type="#92" entity="#22" initialValue="super.initId()"/>
 	<Attribute id="#55" name="bleuName" type="#93" entity="#22" initialValue="super.toString()"/>
-	<CollectionType id="#100" name="List" baseType="#31" minSize="5" maxSize="10" package="Java.utils.List"/>
-	<CollectionType id="#101" name="Array" baseType="#21" size="22" package="Java.utils.Array"/>
-	<CollectionType id="#102" name="Set" baseType="#21" package="Java.utils.Set"/>
+	<CollectionType id="#100" name="List" baseType="#31" minSize="5" maxSize="10"/>
+	<CollectionType id="#101" name="Array" baseType="#21" size="22" />
+	<CollectionType id="#102" name="Set" baseType="#21"/>
 		<Entity id="#20" name="Balise" model="#1"/>
 		<Entity id="#30" name="Satellite" model="#1" />
 		<Entity id="#90" name="Flotte" model="#1"/>

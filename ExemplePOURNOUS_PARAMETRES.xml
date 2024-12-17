@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!-- start : c'est l'id de l'expression racine -->
 <Root>
-		<model name="Meuble" package="m2tiil.meuble"/>
-		<model name="Bataille" package="m2tiil.batailleNavale"/>
-		<primitive name="String" type="String"/>
-		<primitive name="Integer" type="Integer"/>
-		<primitive name="List" type="ArrayList" package="Java.util.ArrayList"/>
-		<primitive name="Array" type="Array" package="m2tiil.Array"/>
-		<primitive name="Set" type="HashSet" package="Java.util.HashSet"/>
-		<primitive name="Bag" type="Bag" package="m2tiil.Bag"/>
+		<Model name="Meuble" package="m2tiil.meuble"/>
+		<Model name="Bataille" package="m2tiil.batailleNavale"/>
+		<Primitive name="String" type="String"/>
+		<Primitive name="Integer" type="Integer"/>
+		<Primitive name="List" type="ArrayList" package="Java.util.ArrayList"/>
+		<Primitive name="Array" type="Array" package="m2tiil.Array"/>
+		<Primitive name="Set" type="HashSet" package="Java.util.HashSet"/>
+		<Primitive name="Bag" type="Bag" package="m2tiil.Bag"/>
 </Root>
