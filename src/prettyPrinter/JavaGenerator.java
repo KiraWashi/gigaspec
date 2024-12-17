@@ -35,7 +35,6 @@ public class JavaGenerator extends Visitor {
 		for (Class n : e.getClasses()) {
 			n.accept(this);
 		}
-		result = result + "end model\n";
 	}
 
 	public void visitClass(Class e) {
