@@ -25,13 +25,13 @@ public class JavaGenerator extends Visitor {
 				}
 			}
 		}
-		if (!this.imports.contains(e.getPackageName())){
-			this.imports.add(e.getPackageName());
+		if (e.getPackageName()!=null){
+			result += "package  "+  e.getPackageName() + ";\n";
 		}
 		for(String s : this.imports){
 			result += "import  "+  s + ";\n";
 		}
-		result = result + "model"+ e.name +";\n\n";
+		result = result + "model "+ e.name +";\n\n";
 
 		for (Class n : e.getClasses()) {
 			n.accept(this);
