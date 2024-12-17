@@ -9,6 +9,7 @@ public class CollectionType extends Type {
     private int taille;
     private boolean debFinRenseigne=false;
     private boolean tailleRenseigne=false;
+
     public CollectionType(String type, Type sousType) {
         super(type);
         this.sousType = sousType;
@@ -65,5 +66,9 @@ public class CollectionType extends Type {
 
     public void setTailleRenseigne(boolean tailleRenseigne) {
         this.tailleRenseigne = tailleRenseigne;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 }

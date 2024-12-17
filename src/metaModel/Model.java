@@ -1,5 +1,4 @@
 package metaModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +11,11 @@ public class Model implements MinispecElement {
 		this.classes = new ArrayList<>();
 		this.name = name;
 	}
-	
+
 	public void accept(Visitor v) {
 		v.visitModel(this);
 	}
-	
+
 	public void addEntity(Class e) {
 		this.classes.add(e);
 	}
