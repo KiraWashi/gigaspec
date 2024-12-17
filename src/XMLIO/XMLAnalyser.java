@@ -62,6 +62,9 @@ public class XMLAnalyser {
 		String name = e.getAttribute("name");
 		Attribute attribute = new Attribute();
 		attribute.setName(name);
+		if(e.hasAttribute("initialValue")){
+			attribute.setParameters(e.getAttribute("initialValue"));
+		}
 		Type type = (Type) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("type")));
 		attribute.setType(type);
 		Class classObject = (Class) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("entity")));

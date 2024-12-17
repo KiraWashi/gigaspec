@@ -31,7 +31,6 @@ public class JavaGenerator extends Visitor {
 		for(String s : this.imports){
 			result += "import  "+  s + ";\n";
 		}
-		result = result + "model "+ e.name +";\n\n";
 
 		for (Class n : e.getClasses()) {
 			n.accept(this);
@@ -108,6 +107,10 @@ public class JavaGenerator extends Visitor {
 	public void visitAttribute(Attribute attribute) {
 		attribute.getType().accept(this);
 		result= result +" "+attribute.getName();
-		result = result + "; \n";
+		if (attribute.getParameters()!=null){
+			result = result +" = "+attribute.getParameters()+ "; \n";
+		}else{
+			result = result + "; \n";
+		}
 	}
 }
