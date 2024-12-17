@@ -36,7 +36,10 @@ public class XMLAnalyser {
 
 	protected Model modelFromElement(Element e) {
 		String name = e.getAttribute("name");
-		return new Model(name);
+		String packages = e.getAttribute("package");
+		Model model = new Model(name);
+		model.setPackageName(packages);
+		return model;
 	}
 
 	protected Class classFromElement(Element e) {
