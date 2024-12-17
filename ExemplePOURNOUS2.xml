@@ -12,8 +12,9 @@
 		<Entity id="#20" name="Balise" model="#1"/>
 		<Entity id="#30" name="Satellite" model="#1" />
 		<Entity id="#90" name="Flotte" model="#1"/>
-			<Attribute name="flotte" type="#91" entity="#30" />
-			<Attribute name="satellites" type="#100" entity="#90"/>
+	<Attribute id="#50" name="satellites" type="#100" entity="#90"/>
+	<Attribute id="#51" name="flotte" type="#91" entity="#30" />
+
 
 
 
