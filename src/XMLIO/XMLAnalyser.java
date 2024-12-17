@@ -58,7 +58,20 @@ public class XMLAnalyser {
 	}
 
 	private CollectionType collectionTypeFromElement(Element e) {
-        return new CollectionType(e.getAttribute("name"),(Type) this.minispecIndex.get(e.getAttribute("baseType")));
+		CollectionType collectionType = new CollectionType(e.getAttribute("name"),(Type) this.minispecIndex.get(e.getAttribute("baseType")));
+
+		if(e.hasAttribute("minSize")){
+			collectionType.setDebut(Integer.parseInt(e.getAttribute("minSize")));
+		}
+		if(e.hasAttribute("maxSize")){
+			collectionType.setFin(Integer.parseInt(e.getAttribute("maxSize")));
+		}
+		if(e.hasAttribute("size")){
+			collectionType.setTaille(Integer.parseInt(e.getAttribute("size")));
+		}
+
+		return collectionType;
+
 	}
 
 	private PrimitiveType primitivTypeFromElement(Element e) {

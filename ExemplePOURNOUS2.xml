@@ -9,12 +9,15 @@
 	<ReferenceType id="#31" name="Satellite"/>
 	<ReferenceType id="#91" name="Flotte"/>
 	<CollectionType id="#100" name="List" baseType="#31" minSize="5" maxSize="10"/>
+	<CollectionType id="#101" name="Array" baseType="#21" size="22"/>
+	<CollectionType id="#102" name="Set" baseType="#21"/>
 		<Entity id="#20" name="Balise" model="#1"/>
 		<Entity id="#30" name="Satellite" model="#1" />
 		<Entity id="#90" name="Flotte" model="#1"/>
 	<Attribute id="#50" name="satellites" type="#100" entity="#90"/>
 	<Attribute id="#51" name="flotte" type="#91" entity="#30" />
-
+	<Attribute id="#52" name="balises" type="#101" entity="#20"/>
+	<Attribute id="#53" name="setBalises" type="#102" entity="#20"/>
 
 
 
