@@ -5,7 +5,7 @@ import metaModel.type.Type;
 public class Attribute implements MinispecElement {
     private String name;
     private Type type;
-
+    private String parameters;
     public String getName() {
         return name;
     }
@@ -23,4 +23,11 @@ public class Attribute implements MinispecElement {
         return name + " : " + type.toString() + ";";
     }
 
+    public String getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(String parameters) {
+        this.parameters = parameters;
+    }
 }
