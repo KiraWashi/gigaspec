@@ -3,6 +3,10 @@ package XMLIO;
 import javax.xml.parsers.*;
 
 import metaModel.Class;
+import metaModel.exception.HeritageAlreadyGivenException;
+import metaModel.exception.HeritageAttributMultipleException;
+import metaModel.exception.HeritageCirculaireException;
+import metaModel.exception.HeritageYourselfException;
 import metaModel.type.CollectionType;
 import metaModel.type.PrimitiveType;
 import metaModel.type.ReferenceType;
@@ -37,6 +41,12 @@ public class XMLAnalyser {
 	protected Class classFromElement(Element e) {
 		String name = e.getAttribute("name");
 		Class classObject = new Class(name);
+		if(e.hasAttribute("supertype")){
+			try {
+				classObject.addHeritage((Class) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("supertype"))));
+			} catch (HeritageAlreadyGivenException | HeritageYourselfException | HeritageCirculaireException |
+					 HeritageAttributMultipleException ignored) {}
+		}
 		Model model = (Model) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("model")));
 		model.addEntity(classObject);
 		return classObject;
@@ -44,10 +54,10 @@ public class XMLAnalyser {
 
 	protected Attribute attributeFromElement(Element e) {
 		String name = e.getAttribute("name");
-		String type = e.getAttribute("type");
 		Attribute attribute = new Attribute();
 		attribute.setName(name);
-		attribute.setType((Type) this.minispecIndex.get(type));
+		Type type = (Type) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("type")));
+		attribute.setType(type);
 		Class classObject = (Class) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("entity")));
 		classObject.addAttribute(attribute);
 		return attribute;
@@ -58,7 +68,8 @@ public class XMLAnalyser {
 	}
 
 	private CollectionType collectionTypeFromElement(Element e) {
-		CollectionType collectionType = new CollectionType(e.getAttribute("name"),(Type) this.minispecIndex.get(e.getAttribute("baseType")));
+		Type type = (Type) minispecElementFromXmlElement(this.xmlElementIndex.get(e.getAttribute("baseType")));
+		CollectionType collectionType = new CollectionType(e.getAttribute("name"),type);
 
 		if(e.hasAttribute("minSize")){
 			collectionType.setDebut(Integer.parseInt(e.getAttribute("minSize")));
