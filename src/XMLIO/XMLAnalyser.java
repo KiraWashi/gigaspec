@@ -41,7 +41,7 @@ public class XMLAnalyser {
 		String name = e.getAttribute("name");
 		Model model = new Model(name);
 		if(xmlParametrage.containsKey(e.getAttribute("name"))){
-			String packages = xmlParametrage.get(e.getAttribute("tag"));
+			String packages = xmlParametrage.get(e.getAttribute("name"));
 			model.setPackageName(packages);
 		}
 		return model;
