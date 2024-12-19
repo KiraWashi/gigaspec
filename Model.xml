@@ -7,12 +7,14 @@
 	<Model id="#1" name="Meuble" />
 	<Entity id="#22" name="Bleu" model="#1" supertype="#20"/>
 	<Attribute id="#50" name="satellites" type="#100" entity="#90"/>
+	<Attribute id="#56" name="satellites" type="#103" entity="#90"/>
 	<Attribute id="#51" name="flotte" type="#91" entity="#30" />
 	<Attribute id="#52" name="balises" type="#101" entity="#20"/>
 	<Attribute id="#53" name="setBalises" type="#102" entity="#20"/>
 	<Attribute id="#54" name="bleuId" type="#92" entity="#22" initialValue="super.initId()"/>
 	<Attribute id="#55" name="bleuName" type="#93" entity="#22" initialValue="super.toString()"/>
-	<CollectionType id="#100" name="List" baseType="#31" minSize="5" maxSize="10"/>
+	<CollectionType id="#100" name="List" baseType="#103" minSize="5" maxSize="10"/>
+	<CollectionType id="#103" name="List" baseType="#31" minSize="5" maxSize="10"/>
 	<CollectionType id="#101" name="Array" baseType="#21" size="22" />
 	<CollectionType id="#102" name="Set" baseType="#21"/>
 		<Entity id="#20" name="Balise" model="#1"/>

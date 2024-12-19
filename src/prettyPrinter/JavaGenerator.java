@@ -51,8 +51,8 @@ public class JavaGenerator extends Visitor {
 	@Override
 	public void visitType(Type type) {
 		String ret = switch (type.getNom()) {
-			case "String" -> "  String";
-			case "Integer" -> "  Integer";
+			case "String" -> "String";
+			case "Integer" -> "Integer";
 			default -> "";
 		};
 		result = result + ret;
@@ -60,7 +60,7 @@ public class JavaGenerator extends Visitor {
 
 	@Override
 	public void visitReferenceType(Type type) {
-		result = result + "  "+type.getNom();
+		result = result +type.getNom();
 	}
 
 	@Override
@@ -69,30 +69,30 @@ public class JavaGenerator extends Visitor {
 		switch (type.getNom()) {
 			case "List" -> {
 				if (type.isDebFinRenseigne()) {
-					ret = "  List [" + type.getDebut() + " : " + type.getFin() + "] of ";
+					ret = "List [" + type.getDebut() + " : " + type.getFin() + "] of ";
 				} else {
-					ret = "  List of ";
+					ret = "List of ";
 				}
 			}
 			case "Bag" -> {
 				if (type.isDebFinRenseigne()) {
-					ret = "  Bag [" + type.getDebut() + " : " + type.getFin() + "] of ";
+					ret = "Bag [" + type.getDebut() + " : " + type.getFin() + "] of ";
 				} else {
-					ret = "  Bag of ";
+					ret = "Bag of ";
 				}
 			}
 			case "Set" -> {
 				if (type.isDebFinRenseigne()) {
-					ret = "  Set [" + type.getDebut() + " : " + type.getFin() + "] of ";
+					ret = "Set [" + type.getDebut() + " : " + type.getFin() + "] of ";
 				} else {
-					ret = "  Set of ";
+					ret = "Set of ";
 				}
 			}
 			case "Array" -> {
 				if (type.isTailleRenseigne()) {
-					ret = "  Array [" + type.getTaille() + "] of ";
+					ret = "Array [" + type.getTaille() + "] of ";
 				}else{
-					ret = "  Array of ";
+					ret = "Array of ";
 				}
 			}
 			default -> ret = "";
