@@ -28,20 +28,22 @@ public class XMLAnalyser {
 	protected Map<String, MinispecElement> minispecIndex;
 	// Map des elements XML
 	protected Map<String, Element> xmlElementIndex;
-	//Map du parametrage
-	protected Map<String,String> xmlParametrage;
+
+	protected XmlAnalyserParam xmlAnalyserParam ;
 
 	public XMLAnalyser() {
 		this.minispecIndex = new HashMap<String, MinispecElement>();
 		this.xmlElementIndex = new HashMap<String, Element>();
-		this.xmlParametrage =  new HashMap<String,String>();
+		this.xmlAnalyserParam = new XmlAnalyserParam();
+		this.xmlAnalyserParam.XMLAnalyserParam();
+		this.xmlAnalyserParam.setParametres("Param.xml");
 	}
 
 	protected Model modelFromElement(Element e) {
 		String name = e.getAttribute("name");
 		Model model = new Model(name);
-		if(xmlParametrage.containsKey(e.getAttribute("name"))){
-			String packages = xmlParametrage.get(e.getAttribute("name"));
+		if(this.xmlAnalyserParam.xmlParametrage.containsKey(e.getAttribute("name"))){
+			String packages = this.xmlAnalyserParam.xmlParametrage.get(e.getAttribute("name"));
 			model.setPackageName(packages);
 		}
 		return model;
@@ -91,8 +93,8 @@ public class XMLAnalyser {
 		}
 		if(e.hasAttribute("size")){
 			collectionType.setTaille(Integer.parseInt(e.getAttribute("size")));
-		}if(xmlParametrage.containsKey(e.getAttribute("name"))){
-			collectionType.setPackageName(xmlParametrage.get(e.getAttribute("name")));
+		}if(this.xmlAnalyserParam.xmlParametrage.containsKey(e.getAttribute("name"))){
+			collectionType.setPackageName(this.xmlAnalyserParam.xmlParametrage.get(e.getAttribute("name")));
 		}
 
 
@@ -216,49 +218,5 @@ public class XMLAnalyser {
 	public Model getModelFromFilenamed(String filename ) {
 		File file = new File(filename);
 		return getModelFromFile(file);
-	}
-
-	public void setParametres(String exemplePOURNOUSParametres) {
-		File file = new File(exemplePOURNOUSParametres);
-
-		InputStream stream = null;
-		try {
-			stream = new FileInputStream(file);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			// création d'une fabrique de documents
-			DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
-
-			// création d'un constructeur de documents
-			DocumentBuilder constructeur = fabrique.newDocumentBuilder();
-			Document document = constructeur.parse(stream);
-			Element e = document.getDocumentElement();
-
-			NodeList nodes = e.getChildNodes();
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node n = nodes.item(i);
-				if (n instanceof Element) {
-					Element child = (Element) n;
-					String name = child.getAttribute("name");
-					if(child.hasAttribute("package")){
-						String packages = child.getAttribute("package");
-						this.xmlParametrage.put(name,packages);
-					}
-				}
-			}
-
-		} catch (ParserConfigurationException pce) {
-			System.out.println("Erreur de configuration du parseur DOM");
-			System.out.println("lors de l'appel à fabrique.newDocumentBuilder();");
-		} catch (SAXException se) {
-			System.out.println("Erreur lors du parsing du document");
-			System.out.println("lors de l'appel à construteur.parse(xml)");
-		} catch (IOException ioe) {
-			System.out.println("Erreur d'entrée/sortie");
-			System.out.println("lors de l'appel à construteur.parse(xml)");
-		}
 	}
 }

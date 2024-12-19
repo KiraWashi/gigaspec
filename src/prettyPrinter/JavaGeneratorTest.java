@@ -19,7 +19,6 @@ class JavaGeneratorTest {
 	@Test
 	void testGeneration() {
 		XMLAnalyser analyser = new XMLAnalyser();
-		analyser.setParametres("Param.xml");
 		Model model = analyser.getModelFromFilenamed("Model.xml");
 		JavaGenerator pp = new JavaGenerator();
 		model.accept(pp);
