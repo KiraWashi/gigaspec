@@ -18,8 +18,8 @@ public class XmlAnalyserParam {
         }
 
 
-        public void setParametres(String exemplePOURNOUSParametres) {
-            File file = new File(exemplePOURNOUSParametres);
+        public void setParametres(String fileName) {
+            File file = new File(fileName);
 
             InputStream stream = null;
             try {
