@@ -23,14 +23,4 @@
 	<ReferenceType id="#91" name="Flotte"/>
 	<PrimitiveType id="#92" name="Integer"/>
 	<PrimitiveType id="#93" name="String"/>
-
-
-
-
-
-	<!-- <Attribute id ="#50" name="specialities" type="#200"/>
-	<CollectionType name="List" id="#200" baseType="#300"/>
-	<CollectionType name="List" id="#300" baseType="#400"/>
-	<PrimitiveType name="Integer" id="#400"/>  -->
-
 </Root>

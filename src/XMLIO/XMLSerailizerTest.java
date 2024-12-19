@@ -103,6 +103,21 @@ class XMLSerailizerTest {
 		transformer.transform(source, result);
 	}
 
+	@Test
+	void testSerialization() throws ParserConfigurationException, TransformerException {
+		XMLAnalyser analyser = new XMLAnalyser();
+		Model model = analyser.getModelFromFilenamed("Model.xml");
+		XMLSerializer serializer = new XMLSerializer();
+		model.accept(serializer);
+		Document document = serializer.result();
+		TransformerFactory tFactory = TransformerFactory.newInstance();
+		Transformer transformer = tFactory.newTransformer();
+
+		DOMSource source = new DOMSource(document);
+		Result result = new StreamResult(new File("Model-out.xml"));
+		transformer.transform(source, result);
+	}
+
 
 
 }

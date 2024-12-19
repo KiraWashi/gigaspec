@@ -56,16 +56,8 @@ public class CollectionType extends Type {
         return debFinRenseigne;
     }
 
-    public void setDebFinRenseigne(boolean debFinRenseigne) {
-        this.debFinRenseigne = debFinRenseigne;
-    }
-
     public boolean isTailleRenseigne() {
         return tailleRenseigne;
-    }
-
-    public void setTailleRenseigne(boolean tailleRenseigne) {
-        this.tailleRenseigne = tailleRenseigne;
     }
 
     public void setPackageName(String packageName) {

@@ -15,7 +15,6 @@ public class JavaGenerator extends Visitor {
 	}
 
 	public void visitModel(Model e) {
-		//Giga boucle pour les imports
 		for (Class n : e.getClasses()) {
 			for (Attribute a : n.attributes) {
 				if(a.getType().packageName!=null){
